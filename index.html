@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Master Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="sidebar">
+        <h3>ADMIN PANEL</h3>
+        <input type="text" id="newAppName" placeholder="Nama Aplikasi Baru">
+        <button onclick="addApp()">+ Tambah App</button>
+        <hr>
+        <div id="appList"></div>
+    </div>
+
+    <div id="main">
+        <h1 id="currentAppTitle">Pilih Aplikasi...</h1>
+        
+        <div class="form-box" id="searchArea" style="display:none">
+            <input type="text" id="searchBox" placeholder="🔍 Cari Kode atau Nama..." onkeyup="renderTable()" style="width: 90%;">
+</div>
+
+        <div class="form-box" id="formArea" style="display:none">
+            <input type="text" id="inKode" placeholder="Kode">
+            <input type="text" id="inNama" placeholder="Nama">
+            <select id="inStatus"><option>Lunas</option><option>Pending</option></select>
+            <button onclick="addData()">+ Tambah Data</button>
+        </div>
+
+        <table id="dataTable" style="display:none">
+            <thead><tr><th>Kode</th><th>Nama</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="dataBody"></tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ki Sasmita Jati. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

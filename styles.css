@@ -1,0 +1,69 @@
+:root {
+    --hacker-green: #00FF41;
+    --hacker-red: #FF0000;
+    --hacker-blue: #00BFFF;
+    --bg-dark: #000000;
+}
+
+body { 
+    /* Menggunakan font sistem yang sangat tajam dan nyaman dibaca */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-dark); 
+    color: var(--hacker-green); 
+    margin: 0; 
+    display: flex; 
+    height: 100vh; 
+    line-height: 1.6; 
+    font-size: 15px; /* Sedikit diperbesar agar data tidak terlalu kecil */
+}
+
+/* SIDEBAR - Gaya Terminal */
+#sidebar { 
+    width: 250px; background: #050505; padding: 20px; 
+    border-right: 2px solid var(--hacker-green); 
+}
+.app-item { 
+    padding: 10px; cursor: pointer; border: 1px solid var(--hacker-green); 
+    margin-bottom: 5px; background: transparent; transition: 0.2s; 
+    text-transform: uppercase;
+}
+.app-item:hover { background: var(--hacker-green); color: #000; }
+
+/* MAIN AREA - Efek Grid */
+#main { 
+    flex: 1; padding: 20px; overflow-y: auto; 
+    background-image: radial-gradient(#002200 1px, transparent 1px); 
+    background-size: 20px 20px; 
+}
+
+.form-box { 
+    background: #050505; padding: 20px; border: 1px solid var(--hacker-green); 
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.2);
+}
+
+input, select, button { 
+    padding: 10px; border-radius: 0; border: 1px solid var(--hacker-green); 
+    background: #000; color: var(--hacker-green); margin: 5px; 
+}
+
+button { cursor: pointer; text-transform: uppercase; font-weight: bold; }
+button:hover { background: var(--hacker-green); color: #000; }
+
+/* TABLE - Sharp Edges */
+table { width: 100%; border-collapse: collapse; background: #000; margin-top: 20px; }
+th, td { border: 1px solid var(--hacker-green); padding: 12px; text-align: left; }
+th { background: #000; color: var(--hacker-green); text-transform: uppercase; }
+
+/* TOMBOL AKSI */
+.edit-btn { background: #000; color: var(--hacker-blue); border: 1px solid var(--hacker-blue); padding: 5px 10px; cursor: pointer; }
+.del-btn { background: #000; color: var(--hacker-red); border: 1px solid var(--hacker-red); padding: 5px 10px; cursor: pointer; }
+
+/* FOOTER - Status Bar */
+footer {
+    position: fixed; bottom: 0; left: 0; width: 100%; text-align: center;
+    padding: 8px 0; background: #000; border-top: 1px solid var(--hacker-green);
+    color: var(--hacker-green); font-size: 0.7rem; z-index: 998;
+    text-transform: uppercase; letter-spacing: 2px;
+}
+
+#main { padding-bottom: 60px; }
