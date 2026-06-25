@@ -1,69 +1,321 @@
+/* --- VARIABEL TEMA --- */
 :root {
-    --hacker-green: #00FF41;
-    --hacker-red: #FF0000;
-    --hacker-blue: #00BFFF;
-    --bg-dark: #000000;
+    --bg-color: #0a0e17;
+    --panel-bg: rgba(16, 23, 38, 0.7);
+    --text-main: #e2e8f0;
+    --accent: #00ffcc; 
+    --accent-hover: #00b38f;
+    --border-glow: 0 0 15px rgba(0, 255, 204, 0.15);
+    --font-ui: 'Plus Jakarta Sans', sans-serif;
+    --font-code: 'Fira Code', monospace;
 }
 
-body { 
-    /* Menggunakan font sistem yang sangat tajam dan nyaman dibaca */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg-dark); 
-    color: var(--hacker-green); 
-    margin: 0; 
-    display: flex; 
-    height: 100vh; 
-    line-height: 1.6; 
-    font-size: 15px; /* Sedikit diperbesar agar data tidak terlalu kecil */
+body.light-mode {
+    --bg-color: #f8fafc;
+    --panel-bg: rgba(255, 255, 255, 0.9);
+    --text-main: #0f172a;
+    --accent: #2563eb; 
+    --accent-hover: #1d4ed8;
+    --border-glow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* SIDEBAR - Gaya Terminal */
-#sidebar { 
-    width: 250px; background: #050505; padding: 20px; 
-    border-right: 2px solid var(--hacker-green); 
-}
-.app-item { 
-    padding: 10px; cursor: pointer; border: 1px solid var(--hacker-green); 
-    margin-bottom: 5px; background: transparent; transition: 0.2s; 
-    text-transform: uppercase;
-}
-.app-item:hover { background: var(--hacker-green); color: #000; }
-
-/* MAIN AREA - Efek Grid */
-#main { 
-    flex: 1; padding: 20px; overflow-y: auto; 
-    background-image: radial-gradient(#002200 1px, transparent 1px); 
-    background-size: 20px 20px; 
+/* --- RESET & BASIC --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.3s ease;
 }
 
-.form-box { 
-    background: #050505; padding: 20px; border: 1px solid var(--hacker-green); 
-    box-shadow: 0 0 5px rgba(0, 255, 65, 0.2);
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 70px; /* Tambahan jarak agar tidak tertutup footer */
+    background-image: radial-gradient(circle at center, rgba(0, 255, 204, 0.03) 0%, transparent 60%);
 }
 
-input, select, button { 
-    padding: 10px; border-radius: 0; border: 1px solid var(--hacker-green); 
-    background: #000; color: var(--hacker-green); margin: 5px; 
+/* --- SISTEM NAVIGASI HALAMAN (SPA) --- */
+.page-view {
+    display: none;
+    width: 100%;
+    max-width: 450px;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.page-view.active { display: block; }
+#viewData { max-width: 800px; }
+
+/* --- GLASS PANEL --- */
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 20px;
+    padding: 35px 30px;
+    box-shadow: var(--border-glow);
+    position: relative; 
+    z-index: 10;
+}
+.light-mode .glass-panel { border-color: #cbd5e1; }
+
+h1, h2 {
+    font-family: var(--font-code);
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+}
+.subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    margin-bottom: 30px;
+    font-family: var(--font-code);
 }
 
-button { cursor: pointer; text-transform: uppercase; font-weight: bold; }
-button:hover { background: var(--hacker-green); color: #000; }
+/* --- FORM & INPUT --- */
+.input-group { margin-bottom: 18px; }
 
-/* TABLE - Sharp Edges */
-table { width: 100%; border-collapse: collapse; background: #000; margin-top: 20px; }
-th, td { border: 1px solid var(--hacker-green); padding: 12px; text-align: left; }
-th { background: #000; color: var(--hacker-green); text-transform: uppercase; }
-
-/* TOMBOL AKSI */
-.edit-btn { background: #000; color: var(--hacker-blue); border: 1px solid var(--hacker-blue); padding: 5px 10px; cursor: pointer; }
-.del-btn { background: #000; color: var(--hacker-red); border: 1px solid var(--hacker-red); padding: 5px 10px; cursor: pointer; }
-
-/* FOOTER - Status Bar */
-footer {
-    position: fixed; bottom: 0; left: 0; width: 100%; text-align: center;
-    padding: 8px 0; background: #000; border-top: 1px solid var(--hacker-green);
-    color: var(--hacker-green); font-size: 0.7rem; z-index: 998;
-    text-transform: uppercase; letter-spacing: 2px;
+input, select {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+}
+input:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 8px rgba(0,255,204,0.15);
+}
+.light-mode input, .light-mode select {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
 }
 
-#main { padding-bottom: 60px; }
+/* --- BUTTONS --- */
+button {
+    font-family: var(--font-code);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+}
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: var(--bg-color); 
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+}
+.light-mode .btn-primary { color: #fff; box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3); }
+
+.btn-secondary {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px dashed var(--accent);
+}
+.btn-secondary:hover { background: rgba(0, 255, 204, 0.08); }
+
+.btn-back {
+    background: transparent;
+    color: var(--text-main);
+    margin-bottom: 25px;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+.btn-back:hover { color: var(--accent); }
+
+/* --- TOMBOL TEMA --- */
+.theme-btn {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: var(--panel-bg);
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+.theme-btn:hover { transform: rotate(15deg) scale(1.1); }
+
+/* --- TABLE --- */
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+th {
+    font-family: var(--font-code);
+    color: var(--accent);
+    text-align: left;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid rgba(0,255,204,0.3);
+}
+.light-mode th { background: #f1f5f9; border-bottom: 2px solid #cbd5e1; }
+td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-weight: 600;
+}
+.light-mode td { border-color: #e2e8f0; }
+
+.btn-del {
+    background: #ef4444;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+}
+.btn-del:hover { background: #dc2626; transform: scale(1.05); }
+
+/* Header Pengelompokan Data (Nama App) */
+.group-header td {
+    background: rgba(0, 255, 204, 0.1);
+    color: var(--accent);
+    font-weight: 800;
+    font-family: var(--font-code);
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(0,255,204,0.3);
+}
+.light-mode .group-header td { background: rgba(37, 99, 235, 0.1); border-bottom-color: #cbd5e1; }
+
+/* --- FOOTER HACKER MELAYANG --- */
+.hacker-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 14, 23, 0.85); /* Efek Kaca */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 255, 204, 0.4);
+    color: var(--accent);
+    text-align: center;
+    padding: 12px 0;
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    z-index: 9999;
+    box-shadow: 0 -5px 20px rgba(0, 255, 204, 0.05);
+}
+.light-mode .hacker-footer {
+    background: rgba(248, 250, 252, 0.85);
+    color: var(--accent);
+    border-top-color: rgba(37, 99, 235, 0.4);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Animasi Ganti Halaman */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- TAMBAHAN UNTUK FITUR EDIT & TANGGAL --- */
+
+/* Menyesuaikan warna ikon kalender bawaan browser agar terlihat di Dark Mode */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+.light-mode input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0);
+}
+
+/* Tombol Edit */
+.btn-edit {
+    background: #eab308; /* Kuning/Orange */
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.btn-edit:hover { 
+    background: #ca8a04; 
+    transform: scale(1.05); 
+}
+
+/* Tata Letak Tombol Aksi (Berdampingan) */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* --- TAMBAHAN UNTUK FITUR COLLAPSE & SEARCH --- */
+
+/* Membuat header kategori bisa diklik */
+.group-header td {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+.group-header td:hover {
+    background: rgba(0, 255, 204, 0.2);
+    padding-left: 20px; /* Efek bergeser sedikit saat disentuh */
+}
+.light-mode .group-header td:hover {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+/* Menyembunyikan baris saat ditutup atau difilter */
+.hidden-collapse, .hidden-search {
+    display: none !important;
+}
+
+/* --- EFEK MATRIX BACKGROUND --- */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Memastikan efek berada paling belakang (di belakang glass panel) */
+    opacity: 0.5; /* Transparansi sangat rendah agar halus dan tidak mengganggu */
+    pointer-events: none; /* Agar tidak memblokir klik/sentuhan ke tombol */
+}
+
+/* Penyesuaian saat mode terang (Light Mode) dinyalakan */
+.light-mode #matrixCanvas {
+    opacity: 0.08; 
+    filter: invert(1); /* Mengubah warna hujan kode menjadi hitam di latar putih */
+}
