@@ -1,41 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Master Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPU ALGORITMA Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <canvas id="matrixCanvas"></canvas>
 
-    <div id="sidebar">
-        <h3>ADMIN PANEL</h3>
-        <input type="text" id="newAppName" placeholder="Nama Aplikasi Baru">
-        <button onclick="addApp()">+ Tambah App</button>
-        <hr>
-        <div id="appList"></div>
-    </div>
+    <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
 
-    <div id="main">
-        <h1 id="currentAppTitle">Pilih Aplikasi...</h1>
-        
-        <div class="form-box" id="searchArea" style="display:none">
-            <input type="text" id="searchBox" placeholder="🔍 Cari Kode atau Nama..." onkeyup="renderTable()" style="width: 90%;">
-</div>
+    <main id="viewBeranda" class="page-view active">
+        <div class="glass-panel">
+            <h1>[ ADMIN_CORE ]</h1>
+            <p class="subtitle">Secure Data Entry Terminal</p>
+            
+            <form id="dataForm">
+                <input type="hidden" id="editId" value="">
 
-        <div class="form-box" id="formArea" style="display:none">
-            <input type="text" id="inKode" placeholder="Kode">
-            <input type="text" id="inNama" placeholder="Nama">
-            <select id="inStatus"><option>Lunas</option><option>Pending</option></select>
-            <button onclick="addData()">+ Tambah Data</button>
+                <div class="input-group">
+                    <input type="text" id="kodeApp" placeholder="< Kode Aplikasi >" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="namaApp" placeholder="< Nama Aplikasi >" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="namaPengguna" placeholder="< Nama Pengguna >" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="nomorHp" placeholder="< Nomor HP Pengguna >" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="date" id="tglData" required>
+                </div>
+                <div class="input-group">
+                    <select id="statusApp" required>
+                        <option value="Aktif">Status: AKTIF</option>
+                        <option value="Pending">Status: PENDING</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary"><span>>_</span> <span id="submitText">INJECT_DATA</span></button>
+            </form>
+
+            <button id="btnLihatData" class="btn-secondary"><i class="fas fa-database"></i> OPEN_DATABASE</button>
         </div>
+    </main>
 
-        <table id="dataTable" style="display:none">
-            <thead><tr><th>Kode</th><th>Nama</th><th>Status</th><th>Aksi</th></tr></thead>
-            <tbody id="dataBody"></tbody>
-        </table>
-    </div>
+    <main id="viewData" class="page-view">
+        <div class="glass-panel wide">
+            <button id="btnKembali" class="btn-back"><i class="fas fa-arrow-left"></i> RETURN_TO_HOME</button>
+            
+            <h2>[ SECURE_RECORDS ]</h2>
 
-    <footer>
-        <p>&copy; 2026 Ki Sasmita Jati. Hak Cipta Dilindungi.</p>
+            <div class="input-group" style="margin-top: 15px; margin-bottom: 20px;">
+                <input type="text" id="searchInput" placeholder="< Search Data... >" autocomplete="off" style="border-style: dashed; border-color: var(--accent);">
+            </div>
+
+            <div class="table-container">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>KODE</th>
+                            <th>TANGGAL</th>
+                            <th>PENGGUNA / HP</th>
+                            <th>STATUS</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="hacker-footer">
+        >_ SYS.ADMIN_©_2026 // UNAUTHORIZED_ACCESS_TRACKED
+        <p>>_ MPU_ALGORITMA // AUGUSTINUS_SIGIT_PRASETYO</p> 
     </footer>
 
     <script src="script.js"></script>
